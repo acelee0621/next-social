@@ -15,46 +15,19 @@ export default async function UserInfoCard({ user }: { user: User }) {
     day: "numeric",
   });
 
-  let isUserBlocked = false;
   let isFollowing = false;
-  let isFollowingSent = false;
 
   const { userId: currentUserId } = auth();
 
   if (currentUserId) {
-    const blockRes = await prisma.block.findFirst({
-      where: {
-        blockerId: currentUserId,
-        blockedId: user.id,
-      },
-    });
-    blockRes ? (isUserBlocked = true) : (isUserBlocked = false);
-  }
-
-  if (currentUserId) {
-    const blockRes = await prisma.block.findFirst({
-      where: {
-        blockerId: currentUserId,
-        blockedId: user.id,
-      },
-    });
-    blockRes ? (isUserBlocked = true) : (isUserBlocked = false);
-
     const followRes = await prisma.follower.findFirst({
       where: {
         followerId: currentUserId,
         followingId: user.id,
       },
     });
-    followRes ? (isFollowing = true) : (isFollowing = false);
 
-    const followReqRes = await prisma.followRequest.findFirst({
-      where: {
-        senderId: currentUserId,
-        receiverId: user.id,
-      },
-    });
-    followReqRes ? (isFollowingSent = true) : (isFollowingSent = false);
+    followRes ? (isFollowing = true) : (isFollowing = false);
   }
 
   return (
@@ -62,9 +35,6 @@ export default async function UserInfoCard({ user }: { user: User }) {
       {/* TOP */}
       <div className="flex justify-between items-center font-medium">
         <span className="text-gray-500">User Information</span>
-
-        {/* <UpdateUser user={user}/> */}
-
         {currentUserId === user.id ? (
           <UpdateUser user={user} />
         ) : (
@@ -94,15 +64,6 @@ export default async function UserInfoCard({ user }: { user: User }) {
           </div>
         )}
 
-        {user.school && (
-          <div className="flex items-center gap-2">
-            <Image src="/school.png" alt="" width={16} height={16} />
-            <span>
-              Went to <b>{user.school}</b>
-            </span>
-          </div>
-        )}
-
         {user.work && (
           <div className="flex items-center gap-2">
             <Image src="/work.png" alt="" width={16} height={16} />
@@ -113,15 +74,6 @@ export default async function UserInfoCard({ user }: { user: User }) {
         )}
 
         <div className="flex items-center justify-between">
-          {user.website && (
-            <div className="flex gap-1 items-center">
-              <Image src="/link.png" alt="" width={16} height={16} />
-              <Link href={user.website} className="text-blue-500 font-medium">
-                {user.website}
-              </Link>
-            </div>
-          )}
-
           <div className="flex gap-1 items-center">
             <Image src="/date.png" alt="" width={16} height={16} />
             <span>Joined {formattedDate} </span>
@@ -129,12 +81,7 @@ export default async function UserInfoCard({ user }: { user: User }) {
         </div>
 
         {currentUserId && currentUserId !== user.id && (
-          <UserInfoCardInteraction
-            userId={user.id}
-            isUserBlocked={isUserBlocked}
-            isFollowing={isFollowing}
-            isFollowingSent={isFollowingSent}
-          />
+          <UserInfoCardInteraction userId={user.id} isFollowing={isFollowing} />
         )}
       </div>
     </div>

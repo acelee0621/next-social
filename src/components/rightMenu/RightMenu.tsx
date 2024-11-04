@@ -1,10 +1,10 @@
 import React, { Suspense } from "react";
-import FriendRequests from "../rightMenu/FriendRequests";
 import Birthdays from "./Birthdays";
 import Ad from "../Ad";
 import UserInfoCard from "./UserInfoCard";
 import UserMediaCard from "./UserMediaCard";
 import { User } from "@prisma/client";
+import FollowerInfo from "./FollowerInfo";
 
 export default function RightMenu({ user }: { user?: User }) {
   return (
@@ -19,7 +19,7 @@ export default function RightMenu({ user }: { user?: User }) {
           </Suspense>
         </>
       ) : null}
-      <FriendRequests />
+      <FollowerInfo />
       <Birthdays />
       <Ad size="md" />
     </div>

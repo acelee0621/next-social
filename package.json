@@ -10,7 +10,13 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^5.7.5",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@fontsource/roboto": "^5.1.0",
+    "@mui/material": "^6.1.5",
     "@prisma/client": "^5.21.1",
+    "@tabler/core": "^1.0.0-beta21",
+    "@tabler/icons-react": "^3.21.0",
     "babel-plugin-react-compiler": "^0.0.0-experimental-938cd9a-20240601",
     "next": "15.0.0-rc.0",
     "next-cloudinary": "^6.16.0",

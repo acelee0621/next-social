@@ -2,85 +2,122 @@ import Link from "next/link";
 import React from "react";
 import MobileMenu from "./MobileMenu";
 import Image from "next/image";
-import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import {
+  ClerkLoaded,
+  ClerkLoading,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
+import {
+  AppBar,
+  Box,
+  CircularProgress,
+  Stack,
+  Toolbar,
+  Typography,
+} from "@mui/material";
+import {
+  IconBell,
+  IconCirclePlus,
+  IconHome,
+  IconMessage,
+  IconUserCircle,
+  IconUsers,
+  IconUsersGroup,
+} from "@tabler/icons-react";
 
 export default function Navbar() {
   return (
-    <div className="h-24 flex items-center justify-between">
-      {/* LEFT */}
-      <div className="md:hidden lg:block w-[20%]">
-        <Link href="/" className="font-bold text-xl text-blue-600">
-          ACE-SOCIAL
-        </Link>
-      </div>
-      {/* CENTER */}
-      <div className="hidden md:flex w-[50%] text-sm items-center justify-between">
-        {/* LINKS */}
-        <div className="flex gap-6 text-gray-600">
-          <Link href="/" className="flex items-center gap-2">
-            <Image
-              src="/home.png"
-              alt="Homepage"
-              width={16}
-              height={16}
-              className="w-4 h-4"
-            />
-            <span>Homepage</span>
+    <AppBar
+      position="sticky"
+      sx={{
+        px: { sm: 4, md: 8, lg: 16, xl: 32, xxl: 64 },
+        bgcolor: "white",
+      }}
+    >
+      <Toolbar
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          height: "4rem",
+        }}
+      >
+        {/* LEFT */}
+        <Box
+          sx={{
+            display: { xs: "none", sm: "none", md: "none", lg: "block" },
+            width: "20%",
+          }}
+        >
+          <Link href="/">
+            <Typography variant="h5" color="primary" fontWeight={700}>
+              ACE-SOCIAL
+            </Typography>
           </Link>
-          <Link href="/" className="flex items-center gap-2">
-            <Image
-              src="/friends.png"
-              alt="Friends"
-              width={16}
-              height={16}
-              className="w-4 h-4"
-            />
-            <span>Friends</span>
-          </Link>
-          <Link href="/" className="flex items-center gap-2">
-            <Image
-              src="/stories.png"
-              alt="Stories"
-              width={16}
-              height={16}
-              className="w-4 h-4"
-            />
-            <span>Stories</span>
-          </Link>
-        </div>
-        <div className="hidden xl:flex p-2 bg-slate-100 items-center rounded-xl">
-          <input type="text" placeholder="Search..." className="bg-transparent outline-none" />
-          <Image src="/search.png" alt="" width={14} height={14} />
-        </div>
-      </div>
-      {/* RIGHT */}
-      <div className="w-[30%] flex items-center gap-4 xl:gap-8 justify-end">
-        <ClerkLoading>
-          <div className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white" />
-        </ClerkLoading>
-        <ClerkLoaded>
-          <SignedIn>
-            <div className="cursor-pointer">
-            <Image src="/people.png" alt="" width={24} height={24} />
-            </div>
-            <div className="cursor-pointer">
-            <Image src="/messages.png" alt="" width={24} height={24} />
-            </div>
-            <div className="cursor-pointer">
-            <Image src="/notifications.png" alt="" width={24} height={24} />
-            </div>
-            <UserButton/>
-          </SignedIn>
-          <SignedOut>
-            <div className="flex items-center gap-2 text-sm">
-            <Image src="/login.png" alt="" width={20} height={20} />
-            <Link href="/sign-in">Login/Register</Link>
-            </div>
-          </SignedOut>
-        </ClerkLoaded>
-
-        <MobileMenu />
-      </div>
-    </div>
+        </Box>
+        {/* CENTER */}
+        <Box
+          sx={{
+            display: { xs:"none",sm: "none", md: "flex" },
+            fontSize: "small",
+            width: "50%",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {/* LINKS */}
+          <Stack direction="row" spacing={6} color="#4b5563">
+            <Link href="/" className="flex items-center gap-2">
+              <IconHome />
+              <Typography variant="body2">Homepage</Typography>
+            </Link>
+            <Link href="/" className="flex items-center gap-2">
+              <IconUsersGroup />
+              <Typography variant="body2">Friends</Typography>
+            </Link>
+            <Link href="/" className="flex items-center gap-2">
+              <IconCirclePlus />
+              <Typography variant="body2">Stories</Typography>
+            </Link>
+          </Stack>
+        </Box>
+        {/* RIGHT */}
+        <Stack
+          width="30%"
+          direction="row"
+          spacing={4}
+          alignItems="center"
+          justifyContent="flex-end"
+          sx={{ gap: { xl: 8 } }}
+        >
+          <ClerkLoading>
+            <CircularProgress color="inherit" />
+          </ClerkLoading>
+          <ClerkLoaded>
+            <SignedIn>
+              <Stack direction="row" spacing={4} alignItems="center">
+                <IconUsers color="gray" />
+                <IconMessage color="gray" />
+                <IconBell color="gray" />
+                <UserButton />
+              </Stack>
+            </SignedIn>
+            <SignedOut>
+              <Stack direction="row" alignItems="center" spacing={2}>
+                <IconUserCircle color="gray" />
+                <Link href="/sign-in">
+                  <Typography variant="body2" color="black">
+                    Login/Register
+                  </Typography>
+                </Link>
+              </Stack>
+            </SignedOut>
+          </ClerkLoaded>
+          <MobileMenu />
+        </Stack>
+      </Toolbar>
+    </AppBar>
   );
 }

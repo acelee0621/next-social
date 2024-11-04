@@ -71,7 +71,7 @@ export default async function Feed({username}:{username?:string}) {
       },
     });
   }
-
+  
   return (
     <div className="p-4 bg-white shadow-md rounded-lg flex flex-col gap-12">
       {posts.length ? (posts.map(post=>(

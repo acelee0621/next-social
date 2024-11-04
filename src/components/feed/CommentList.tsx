@@ -37,9 +37,7 @@ const CommentList = ({
         name: "",
         surname: "",
         city: "",
-        work: "",
-        school: "",
-        website: "",
+        work: "",        
         createdAt: new Date(Date.now()),
       },
     });

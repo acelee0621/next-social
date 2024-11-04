@@ -3,7 +3,6 @@ import Feed from '@/components/feed/Feed'
 import LeftMenu from '@/components/leftMenu/LeftMenu'
 import RightMenu from '@/components/rightMenu/RightMenu'
 import prisma from '@/lib/client'
-import { auth } from '@clerk/nextjs/server'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import React from 'react'
@@ -29,23 +28,6 @@ const user = await prisma.user.findFirst({
 
 if(!user) return notFound();
 
-const {userId: currentUserId} = auth();
-
-let isBlocked;
-
-if(currentUserId) {
-  const res = await prisma.block.findFirst({
-    where:{
-      blockerId: user.id,
-      blockedId: currentUserId,
-    },
-  });
-  if(res) isBlocked = true;
-} else {
-  isBlocked = false;
-}
-
-if(isBlocked) return notFound();
 
   return (
     <div className="flex gap-6 pt-6">

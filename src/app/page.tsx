@@ -2,21 +2,31 @@ import AddPost from "@/components/feed/AddPost";
 import Feed from "@/components/feed/Feed";
 import LeftMenu from "@/components/leftMenu/LeftMenu";
 import RightMenu from "@/components/rightMenu/RightMenu";
-import Stories from "@/components/Stories";
+import { Box, Stack } from "@mui/material";
 
 const Homepage = () => {
   return (
     <div className="flex gap-6 pt-6">
-      <div className="hidden xl:block w-[20%]">
-        <LeftMenu type='home' />
-      </div>
-      <div className="w-full lg:w-[70%] xl:w-[50%]">
-        <div className="flex flex-col gap-6 ">
-          <Stories />
-          <AddPost />
-          <Feed />
-        </div>
-      </div>
+      <Box
+        sx={{
+          display: { xs: "none", sm: "none", md: "none", lg: "block" },
+          width: "20%",
+        }}
+      >
+        <LeftMenu type="home" />
+      </Box>
+
+      <Stack
+        direction="column"
+        spacing={4}
+        sx={{
+          width: { xs: "100%", sm: "100%", md: "100%", lg: "70%", xl: "50%" },
+        }}
+      >        
+        <AddPost />
+        <Feed />
+      </Stack>
+
       <div className="hidden lg:block w-[30%]">
         <RightMenu />
       </div>
