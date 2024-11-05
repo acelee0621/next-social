@@ -5,10 +5,11 @@ import UserInfoCard from "./UserInfoCard";
 import UserMediaCard from "./UserMediaCard";
 import { User } from "@prisma/client";
 import FollowerInfo from "./FollowerInfo";
+import { Stack } from "@mui/material";
 
 export default function RightMenu({ user }: { user?: User }) {
   return (
-    <div className="flex flex-col gap-6">
+    <Stack direction="column" gap={4}>
       {user ? (
         <>
           <Suspense fallback="loading...">
@@ -22,6 +23,6 @@ export default function RightMenu({ user }: { user?: User }) {
       <FollowerInfo />
       <Birthdays />
       <Ad size="md" />
-    </div>
+    </Stack>
   );
 }

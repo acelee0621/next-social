@@ -49,14 +49,14 @@ export default async function ProfileCard() {
         sx={{ height: 100 }}
         image={user.cover || "/noCover.png"}
         title="user cover"
-      ></CardMedia>
-      <CardContent sx={{ justifyContent: "center",color:"#4b5563" }} >
+      />
+      <CardContent sx={{ justifyContent: "center" }} >
         <Avatar
           alt={user.username}
           src={user.avatar || "/noAvatar.png"}
           sx={{ width: 80, height: 80, justifySelf: "center", mt: "-45px" }}
         />
-        <Typography gutterBottom variant="h6" justifySelf="center">
+        <Typography gutterBottom variant="h6" justifySelf="center" color="textSecondary">
           {user.name && user.surname
             ? user.name + " " + user.surname
             : "@" + user.username}
@@ -72,7 +72,7 @@ export default async function ProfileCard() {
             />
           ))}
         </AvatarGroup>
-        <Typography variant="body2" justifySelf="center">
+        <Typography variant="body2" justifySelf="center" color="textSecondary">
           {user._count.followers}&nbsp;&nbsp;&nbsp;Followers
         </Typography>
         </Stack>

@@ -5,6 +5,8 @@ import prisma from "./client";
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
 
+
+
 export const switchFollow = async (userId: string) => {
   const { userId: currentUserId } = auth();
 
@@ -29,8 +31,8 @@ export const switchFollow = async (userId: string) => {
     } else {
       await prisma.follower.create({
         data: {
-          followerId: userId,
-          followingId: currentUserId,
+          followerId: currentUserId,
+          followingId: userId,
         },
       });
     }

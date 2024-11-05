@@ -1,39 +1,35 @@
-"use client";
-
-import prisma from "@/lib/client";
+import { Avatar, Button, CardContent, Stack, Typography } from "@mui/material";
 import { User } from "@prisma/client";
-import Image from "next/image";
-import React, { useOptimistic, useState } from "react";
+import Link from "next/link";
 
-
-
-export default function FollowerList({
-  follower
-}: {
-  follower: User[];
-}) {  
-
- 
+export default function FollowerList({ follower }: { follower: User[] }) {
   return (
-    <div className="">
-      {follower?.map((item) => (
-        <div className="flex items-center justify-between" key={item.id}>
-          <div className="flex items-center gap-4">
-            <Image
-              src={item.avatar || "/noAvatar.png"}
-              alt="sender avatar"
-              width={40}
-              height={40}
-              className="w-10 h-10 rounded-full object-cover"
-            />
-            <span className="font-semibold">
-              {item.name && item.surname
-                ? item.name + " " + item.surname
-                : item.username}
-            </span>
-          </div>          
-        </div>
-      ))}
-    </div>
+    <CardContent sx={{ px: 2 }}>
+      <Stack direction="column" justifyContent="space-between" gap={2}>
+        {follower?.map((item) => (
+          <Stack direction="row" justifyContent="space-between" key={item.id}>
+            <Stack direction="row" gap={2} alignItems="center">
+              <Avatar
+                alt={item.username}
+                src={item.avatar || "/noAvatar.png"}
+                sx={{ width: 40, height: 40 }}
+              />
+              <Typography
+                variant="body1"
+                color="textSecondary"
+                fontWeight={500}
+              >
+                {item.name && item.surname
+                  ? item.name + " " + item.surname
+                  : "@" + item.username}
+              </Typography>
+            </Stack>
+            <Button size="small" variant="text" sx={{ justifySelf: "end" }}>
+              <Link href={`/profile/${item.username}`}>see profile</Link>
+            </Button>
+          </Stack>
+        ))}
+      </Stack>
+    </CardContent>
   );
 }

@@ -6,7 +6,7 @@ import { Box, Stack } from "@mui/material";
 
 const Homepage = () => {
   return (
-    <div className="flex gap-6 pt-6">
+    <Stack direction="row" gap={4} pt={4}>
       <Box
         sx={{
           display: { xs: "none", sm: "none", md: "none", lg: "block" },
@@ -22,15 +22,20 @@ const Homepage = () => {
         sx={{
           width: { xs: "100%", sm: "100%", md: "100%", lg: "70%", xl: "50%" },
         }}
-      >        
+      >
         <AddPost />
         <Feed />
       </Stack>
 
-      <div className="hidden lg:block w-[30%]">
+      <Box
+        sx={{
+          display: { xs: "none", sm: "none", md: "none", lg: "block" },
+          width: "30%",
+        }}
+      >
         <RightMenu />
-      </div>
-    </div>
+      </Box>
+    </Stack>
   );
 };
 

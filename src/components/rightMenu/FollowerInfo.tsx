@@ -1,9 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { auth } from "@clerk/nextjs/server";
 import prisma from "@/lib/client";
 import FollowerList from "./FollowerList";
+import { Card, CardHeader, Typography } from "@mui/material";
 
 export default async function FollowerInfo() {
   const { userId } = auth();
@@ -33,16 +33,24 @@ export default async function FollowerInfo() {
   if (user?.followers.length === 0) return null;
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow-md text-sm flex flex-col gap-4">
-      {/* TOP */}
-      <div className="flex justify-between items-center font-medium">
-        <span className="text-gray-500">Follower List</span>
-        <Link href="/" className="text-blue-500 text-xs">
+    <Card raised sx={{ borderRadius: 1.5 }}>
+      <CardHeader      
+        disableTypography
+        title={
+          <Typography variant="body1" color="textSecondary">
+            Follower List
+          </Typography>
+        }
+        action={
+          <Link href="/" className="text-blue-500 text-xs">
           See all
         </Link>
-      </div>
-      {/* USER */}
-      <FollowerList follower={followers} />
-    </div>
+        }        
+      />
+           
+      {/* FOLLOWER */}
+      <FollowerList follower={followers} />    
+    
+    </Card>
   );
 }

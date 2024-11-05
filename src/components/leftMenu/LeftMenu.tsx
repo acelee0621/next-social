@@ -1,95 +1,139 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import React from 'react'
-import ProfileCard from './ProfileCard'
-import Ad from '../Ad'
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+import ProfileCard from "./ProfileCard";
+import Ad from "../Ad";
+import {
+  Card,
+  CardContent,
+  Divider,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Stack,
+} from "@mui/material";
 
 export default function LeftMenu({ type }: { type: "home" | "profile" }) {
   return (
-    <div className="flex flex-col gap-6">
-       {type === "home" && <ProfileCard />}
-      <div className="p-4 bg-white rounded-lg shadow-md text-sm text-gray-500 flex flex-col gap-2">
-        <Link
-          href="/"
-          className="flex items-center gap-4 p-2 rounded-lg hover:bg-slate-100"
-        >
-          <Image src="/posts.png" alt="" width={20} height={20} />
-          <span>My Posts</span>
-        </Link>
-        <hr className="border-t-1 border-gray-50 w-36 self-center" />
-        <Link
-          href="/"
-          className="flex items-center gap-4 p-2 rounded-lg hover:bg-slate-100"
-        >
-          <Image src="/activity.png" alt="" width={20} height={20} />
-          <span>Activity</span>
-        </Link>
-        <hr className="border-t-1 border-gray-50 w-36 self-center" />
-        <Link
-          href="/"
-          className="flex items-center gap-4 p-2 rounded-lg hover:bg-slate-100"
-        >
-          <Image src="/market.png" alt="" width={20} height={20} />
-          <span>Marketplace</span>
-        </Link>
-        <hr className="border-t-1 border-gray-50 w-36 self-center" />
-        <Link
-          href="/"
-          className="flex items-center gap-4 p-2 rounded-lg hover:bg-slate-100"
-        >
-          <Image src="/events.png" alt="" width={20} height={20} />
-          <span>Events</span>
-        </Link>
-        <hr className="border-t-1 border-gray-50 w-36 self-center" />
-        <Link
-          href="/"
-          className="flex items-center gap-4 p-2 rounded-lg hover:bg-slate-100"
-        >
-          <Image src="/albums.png" alt="" width={20} height={20} />
-          <span>Albums</span>
-        </Link>
-        <hr className="border-t-1 border-gray-50 w-36 self-center" />
-        <Link
-          href="/"
-          className="flex items-center gap-4 p-2 rounded-lg hover:bg-slate-100"
-        >
-          <Image src="/videos.png" alt="" width={20} height={20} />
-          <span>Videos</span>
-        </Link>
-        <hr className="border-t-1 border-gray-50 w-36 self-center" />
-        <Link
-          href="/"
-          className="flex items-center gap-4 p-2 rounded-lg hover:bg-slate-100"
-        >
-          <Image src="/news.png" alt="" width={20} height={20} />
-          <span>News</span>
-        </Link>
-        <hr className="border-t-1 border-gray-50 w-36 self-center" />
-        <Link
-          href="/"
-          className="flex items-center gap-4 p-2 rounded-lg hover:bg-slate-100"
-        >
-          <Image src="/courses.png" alt="" width={20} height={20} />
-          <span>Courses</span>
-        </Link>
-        <hr className="border-t-1 border-gray-50 w-36 self-center" />
-        <Link
-          href="/"
-          className="flex items-center gap-4 p-2 rounded-lg hover:bg-slate-100"
-        >
-          <Image src="/lists.png" alt="" width={20} height={20} />
-          <span>Lists</span>
-        </Link>
-        <hr className="border-t-1 border-gray-50 w-36 self-center" />
-        <Link
-          href="/"
-          className="flex items-center gap-4 p-2 rounded-lg hover:bg-slate-100"
-        >
-          <Image src="/settings.png" alt="" width={20} height={20} />
-          <span>Settings</span>
-        </Link>
-      </div>
-      <Ad size="sm"/>
-    </div>
-  )
+    <Stack direction="column" gap={4}>
+      {type === "home" && <ProfileCard />}
+      <Card raised sx={{ borderRadius: 1.5 }}>
+        <CardContent sx={{ justifyContent: "center", color: "#4b5563" }}>
+          <List>
+            <ListItem disablePadding>
+              <ListItemButton
+                component="a"
+                href="/"
+                sx={{ gap: 2, borderRadius: 1.5 }}
+              >
+                <Image src="/posts.png" alt="" width={20} height={20} />
+                <ListItemText primary="My Posts" />
+              </ListItemButton>
+            </ListItem>
+            <Divider sx={{ opacity: 0.6 }} variant="middle" flexItem />
+            <ListItem disablePadding>
+              <ListItemButton
+                component="a"
+                href="/"
+                sx={{ gap: 2, borderRadius: 1.5 }}
+              >
+                <Image src="/activity.png" alt="" width={20} height={20} />
+                <ListItemText primary="Activity" />
+              </ListItemButton>
+            </ListItem>
+            <Divider sx={{ opacity: 0.6 }} variant="middle" flexItem />
+            <ListItem disablePadding>
+              <ListItemButton
+                component="a"
+                href="/"
+                sx={{ gap: 2, borderRadius: 1.5 }}
+              >
+                <Image src="/market.png" alt="" width={20} height={20} />
+                <ListItemText primary="Marketplace" />
+              </ListItemButton>
+            </ListItem>
+            <Divider sx={{ opacity: 0.6 }} variant="middle" flexItem />
+            <ListItem disablePadding>
+              <ListItemButton
+                component="a"
+                href="/"
+                sx={{ gap: 2, borderRadius: 1.5 }}
+              >
+                <Image src="/events.png" alt="" width={20} height={20} />
+                <ListItemText primary="Events" />
+              </ListItemButton>
+            </ListItem>
+            <Divider sx={{ opacity: 0.6 }} variant="middle" flexItem />
+            <ListItem disablePadding>
+              <ListItemButton
+                component="a"
+                href="/"
+                sx={{ gap: 2, borderRadius: 1.5 }}
+              >
+                <Image src="/albums.png" alt="" width={20} height={20} />
+                <ListItemText primary="Albums" />
+              </ListItemButton>
+            </ListItem>
+            <Divider sx={{ opacity: 0.6 }} variant="middle" flexItem />
+            <ListItem disablePadding>
+              <ListItemButton
+                component="a"
+                href="/"
+                sx={{ gap: 2, borderRadius: 1.5 }}
+              >
+                <Image src="/videos.png" alt="" width={20} height={20} />
+                <ListItemText primary="Videos" />
+              </ListItemButton>
+            </ListItem>
+            <Divider sx={{ opacity: 0.6 }} variant="middle" flexItem />
+            <ListItem disablePadding>
+              <ListItemButton
+                component="a"
+                href="/"
+                sx={{ gap: 2, borderRadius: 1.5 }}
+              >
+                <Image src="/news.png" alt="" width={20} height={20} />
+                <ListItemText primary="News" />
+              </ListItemButton>
+            </ListItem>
+            <Divider sx={{ opacity: 0.6 }} variant="middle" flexItem />
+            <ListItem disablePadding>
+              <ListItemButton
+                component="a"
+                href="/"
+                sx={{ gap: 2, borderRadius: 1.5 }}
+              >
+                <Image src="/courses.png" alt="" width={20} height={20} />
+                <ListItemText primary="Courses" />
+              </ListItemButton>
+            </ListItem>
+            <Divider sx={{ opacity: 0.6 }} variant="middle" flexItem />
+            <ListItem disablePadding>
+              <ListItemButton
+                component="a"
+                href="/"
+                sx={{ gap: 2, borderRadius: 1.5 }}
+              >
+                <Image src="/lists.png" alt="" width={20} height={20} />
+                <ListItemText primary="Lists" />
+              </ListItemButton>
+            </ListItem>
+            <Divider sx={{ opacity: 0.6 }} variant="middle" flexItem />
+            <ListItem disablePadding>
+              <ListItemButton
+                component="a"
+                href="/"
+                sx={{ gap: 2, borderRadius: 1.5 }}
+              >
+                <Image src="/settings.png" alt="" width={20} height={20} />
+                <ListItemText primary="Settings" />
+              </ListItemButton>
+            </ListItem>
+          </List>
+        </CardContent>
+      </Card>
+      <Ad size="sm" />
+    </Stack>
+  );
 }

@@ -1,18 +1,34 @@
-'use client'
-import { User } from '@prisma/client'
-import Image from "next/image";
-import { useRouter } from 'next/navigation';
-import React, { useActionState, useState } from 'react'
-import { CldUploadWidget } from 'next-cloudinary';
-import { updateProfile } from '@/lib/action';
-import UpdateButton from './UpdateButton';
+"use client";
+import { User } from "@prisma/client";
+import { useRouter } from "next/navigation";
+import React, { useActionState, useState } from "react";
+import { CldUploadWidget } from "next-cloudinary";
+import { updateProfile } from "@/lib/action";
+import UpdateButton from "./UpdateButton";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Dialog,
+  FormControl,
+  IconButton,
+  TextField,
+  Typography,
+  ButtonBase,
+} from "@mui/material";
+import { IconCircleLetterX } from "@tabler/icons-react";
+import { styled } from "@mui/material/styles";
 
-export default function UpdateUser({ user }:{user:User}) {
-
+export default function UpdateUser({ user }: { user: User }) {
   const [open, setOpen] = useState(false);
   const [cover, setCover] = useState<any>(false);
 
-  const [state, formAction] = useActionState(updateProfile,{success:false,error:false});
+  const [state, formAction] = useActionState(updateProfile, {
+    success: false,
+    error: false,
+  });
 
   const router = useRouter();
 
@@ -21,162 +37,196 @@ export default function UpdateUser({ user }:{user:User}) {
     state.success && router.refresh();
   };
 
+  const ImageButton = styled(ButtonBase)(({ theme }) => ({
+    position: "relative",
+    height: 200,
+    alignSelf: "center",    
+    [theme.breakpoints.down("sm")]: {
+      width: "100% !important", // Overrides inline-style
+      height: 100,
+    },
+    "&:hover, &.Mui-focusVisible": {
+      zIndex: 1,
+      "& .MuiImageBackdrop-root": {
+        opacity: 0.15,
+      },
+      "& .MuiImageMarked-root": {
+        opacity: 0,
+      },
+      "& .MuiTypography-root": {
+        border: "4px solid currentColor",
+      },
+    },
+  }));
+
+  const ImageSrc = styled("span")({
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    backgroundSize: "cover",
+    backgroundPosition: "center 40%",    
+  });
+
+  const Image = styled("span")(({ theme }) => ({
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    color: theme.palette.common.white,
+  }));
+
+  const ImageBackdrop = styled("span")(({ theme }) => ({
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    backgroundColor: theme.palette.common.black,
+    opacity: 0.4,
+    transition: theme.transitions.create("opacity"),
+  }));
+
+  const ImageMarked = styled("span")(({ theme }) => ({
+    height: 3,
+    width: 18,
+    backgroundColor: theme.palette.common.white,
+    position: "absolute",
+    bottom: -2,
+    left: "calc(50% - 9px)",
+    transition: theme.transitions.create("opacity"),
+  }));
+
+  
 
   return (
-    <div className="">
-      <span
-        className="text-blue-500 text-xs cursor-pointer"
-        onClick={() => setOpen(true)}
-      >
+    <React.Fragment>
+      <Button variant="text" size="small" onClick={() => setOpen(true)}>
         Update
-      </span>
+      </Button>
       {open && (
-        <div className="absolute w-screen h-screen top-0 left-0 bg-black bg-opacity-65 flex items-center justify-center z-50 ">
-          <form
-            action={(formData) =>
-              formAction({ formData, cover: cover?.secure_url || "" })
-            }
-            className="p-12 bg-white rounded-lg shadow-md flex flex-col gap-2 w-full md:w-1/2 xl:w-1/3 relative"
-          >
-            {/* TITLE */}
-            <h1>Update Profile</h1>
-            <div className="mt-4 text-xs text-gray-500">
-              Use the navbar profile to change the avatar or username.
-            </div>
-            {/* COVER PIC UPLOAD */}
-            <CldUploadWidget
-              uploadPreset="social"
-              onSuccess={(result) => setCover(result.info)}
-            >
-              {({ open }) => {
-                return (
-                  <div
-                    className="flex flex-col gap-4 my-4"
-                    onClick={() => open()}
-                  >
-                    <label htmlFor="">Cover Picture</label>
-                    <div className="flex items-center gap-2 cursor-pointer">
-                      <Image
-                        src={user.cover || "/noCover.png"}
-                        alt=""
-                        width={48}
-                        height={32}
-                        className="w-12 h-8 rounded-md object-cover"
-                      />
-                      <span className="text-xs underline text-gray-600">
-                        Change
-                      </span>
-                    </div>
-                  </div>
-                );
-              }}
-            </CldUploadWidget>
+        <Dialog open={open} onClose={handleClose}>
+          <Card>
+            <CardHeader
+              title="Update Profile"
+              subheader="Use the navbar profile to change the avatar or username."
+              action={
+                <IconButton onClick={handleClose}>
+                  <IconCircleLetterX />
+                </IconButton>
+              }
+            />
+            <CardContent>
+              <FormControl
+                component="form"
+                action={(formData) =>
+                  formAction({ formData, cover: cover?.secure_url || "" })
+                }
+              >
+                {/* COVER PIC UPLOAD */}
+                <CldUploadWidget
+                  uploadPreset="social"
+                  onSuccess={(result) => setCover(result.info)}
+                >
+                  {({ open }) => {
+                    return (
+                      <ImageButton
+                        focusRipple
+                        onClick={() => open()}
+                        style={{
+                          width: 400,
+                        }}
+                      >
+                        <ImageSrc
+                          style={{ backgroundImage:`url(${user.cover || "/noCover.png"})` }}
+                        />
+                        <ImageBackdrop className="MuiImageBackdrop-root" />
+                        <Image>
+                          <Typography
+                            component="span"
+                            variant="subtitle1"
+                            color="inherit"
+                            sx={(theme) => ({
+                              position: "relative",
+                              p: 4,
+                              pt: 2,
+                              pb: `calc(${theme.spacing(1)} + 6px)`,
+                            })}
+                          >
+                            Change Cover
+                            <ImageMarked className="MuiImageMarked-root" />
+                          </Typography>
+                        </Image>
+                      </ImageButton>
+                    );
+                  }}
+                </CldUploadWidget>
 
-            {/* WRAPPER */}
-            <div className="flex flex-wrap justify-between gap-2 xl:gap-4">
-              {/* INPUT */}
-              <div className="flex flex-col gap-4">
-                <label htmlFor="" className="text-xs text-gray-500">
-                  First Name
-                </label>
-                <input
-                  type="text"
-                  placeholder={user.name || "John"}
-                  className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
-                  name="name"
-                />
-              </div>
-              <div className="flex flex-col gap-4">
-                <label htmlFor="" className="text-xs text-gray-500">
-                  Surname
-                </label>
-                <input
-                  type="text"
-                  placeholder={user.surname || "Doe"}
-                  className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
-                  name="surname"
-                />
-              </div>
-              {/* INPUT */}
-              <div className="flex flex-col gap-4">
-                <label htmlFor="" className="text-xs text-gray-500">
-                  Description
-                </label>
-                <input
-                  type="text"
-                  placeholder={user.description || "Life is beautiful..."}
-                  className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
-                  name="description"
-                />
-              </div>
-              {/* INPUT */}
-              <div className="flex flex-col gap-4">
-                <label htmlFor="" className="text-xs text-gray-500">
-                  City
-                </label>
-                <input
-                  type="text"
-                  placeholder={user.city || "New York"}
-                  className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
-                  name="city"
-                />
-              </div>
-              {/* INPUT */}
-
-              <div className="flex flex-col gap-4">
-                <label htmlFor="" className="text-xs text-gray-500">
-                  School
-                </label>
-                <input
-                  type="text"
-                  placeholder={user.school || "MIT"}
-                  className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
-                  name="school"
-                />
-              </div>
-              {/* INPUT */}
-
-              <div className="flex flex-col gap-4">
-                <label htmlFor="" className="text-xs text-gray-500">
-                  Work
-                </label>
-                <input
-                  type="text"
-                  placeholder={user.work || "Apple Inc."}
-                  className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
-                  name="work"
-                />
-              </div>
-              {/* INPUT */}
-
-              <div className="flex flex-col gap-4">
-                <label htmlFor="" className="text-xs text-gray-500">
-                  Website
-                </label>
-                <input
-                  type="text"
-                  placeholder={user.website || "lama.dev"}
-                  className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
-                  name="website"
-                />
-              </div>
-            </div>
-            <UpdateButton/>
-            {state.success && (
-              <span className="text-green-500">Profile has been updated!</span>
-            )}
-            {state.error && (
-              <span className="text-red-500">Something went wrong!</span>
-            )}
-            <div
-              className="absolute text-xl right-2 top-3 cursor-pointer"
-              onClick={handleClose}
-            >
-              X
-            </div>
-          </form>
-        </div>
+                {/* WRAPPER */}
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "space-between",
+                    gap: 2,
+                    px: 3,
+                    mb: 3,
+                    mt:3
+                  }}
+                >
+                  {/* INPUT */}
+                  <TextField
+                    size="small"
+                    placeholder={user.name || "John"}
+                    name="name"
+                    label="First Name"
+                  />
+                  <TextField
+                    size="small"
+                    placeholder={user.surname || "Doe"}
+                    name="surname"
+                    label="Surname"
+                  />
+                  <TextField
+                    size="small"
+                    placeholder={user.description || "Life is beautiful..."}
+                    name="description"
+                    label="Description"
+                  />
+                  <TextField
+                    size="small"
+                    placeholder={user.city || "New York"}
+                    name="city"
+                    label="City"
+                  />
+                  <TextField
+                    size="small"
+                    placeholder={user.work || "Apple Inc."}
+                    name="work"
+                    label="Work"
+                  />
+                </Box>
+                <UpdateButton />
+                {state.success && (
+                  <Typography variant="body1" color="success">
+                    Profile has been updated!
+                  </Typography>
+                )}
+                {state.error && (
+                  <Typography variant="body1" color="error">
+                    Something went wrong!
+                  </Typography>
+                )}
+              </FormControl>
+            </CardContent>
+          </Card>
+        </Dialog>
       )}
-    </div>
-  )
+    </React.Fragment>
+  );
 }

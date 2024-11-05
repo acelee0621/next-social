@@ -1,32 +1,51 @@
 "use client";
 
 import { deletePost } from "@/lib/action";
-import Image from "next/image";
+import { Button, FormControl, IconButton, Menu, MenuItem } from "@mui/material";
+import { IconDots } from "@tabler/icons-react";
 import { useState } from "react";
 
 const PostInfo = ({ postId }: { postId: number }) => {
-  const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const deletePostWithId = deletePost.bind(null, postId);
   return (
-    <div className="relative">
-      <Image
-        src="/more.png"
-        width={16}
-        height={16}
-        alt=""
-        onClick={() => setOpen((prev) => !prev)}
-        className="cursor-pointer"
-      />
-      {open && (
-        <div className="absolute top-4 right-0 bg-white p-4 w-32 rounded-lg flex flex-col gap-2 text-xs shadow-lg z-30">
-          <span className="cursor-pointer">View</span>
-          <span className="cursor-pointer">Re-post</span>
-          <form action={deletePostWithId}>
-            <button className="text-red-500">Delete</button>
-          </form>
-        </div>
-      )}
+    <div>
+      <IconButton
+        id="more-button"
+        aria-controls={open ? "more" : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? "true" : undefined}
+        onClick={handleClick}
+      >
+        <IconDots />
+      </IconButton>
+      <Menu
+        id="more"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          "aria-labelledby": "more-button",
+        }}
+      >
+        <MenuItem onClick={handleClose}>View</MenuItem>
+        <MenuItem onClick={handleClose}>Re-post</MenuItem>
+        <MenuItem>
+        <FormControl component="form" action={deletePostWithId}>
+        <Button size="small" variant="text" disableElevation sx={{color:"red"}} type="submit">
+          Delete
+        </Button>
+        </FormControl>
+        </MenuItem>
+      </Menu>
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React from 'react'
 import Post from './Post'
 import { auth } from '@clerk/nextjs/server';
 import prisma from '@/lib/client';
+import { Stack } from '@mui/material';
 
 export default async function Feed({username}:{username?:string}) {
   const { userId } = auth();
@@ -73,10 +74,10 @@ export default async function Feed({username}:{username?:string}) {
   }
   
   return (
-    <div className="p-4 bg-white shadow-md rounded-lg flex flex-col gap-12">
+    <Stack direction="column" gap={2} >
       {posts.length ? (posts.map(post=>(
         <Post key={post.id} post={post}/>
       ))) : "No posts found!"}
-    </div>
+    </Stack>
   )
 }

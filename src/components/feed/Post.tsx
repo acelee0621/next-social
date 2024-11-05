@@ -2,9 +2,12 @@ import Image from 'next/image'
 import React, { Suspense } from 'react'
 import { Post as PostType, User } from "@prisma/client";
 import { auth } from '@clerk/nextjs/server';
-import PostInteraction from './PostInteraction';
+
 import Comments from './Comments';
 import PostInfo from './PostInfo';
+import { Avatar, Card, CardContent, CardHeader, Typography } from '@mui/material';
+import PostInteraction from './PostInteraction';
+
 
 
 type FeedPostType = PostType & { user: User } & {
@@ -18,26 +21,30 @@ export default async function Post({ post }: { post: FeedPostType }) {
 
 
   return (
-    <div className="flex flex-col gap-4">
-      {/* USER */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Image
-            src={post.user.avatar || "/noAvatar.png"}
-            width={40}
-            height={40}
-            alt=""
-            className="w-10 h-10 rounded-full"
-          />
-          <span className="font-medium">
+    <Card raised sx={{ borderRadius: 1.5 }}>
+      <CardHeader
+        avatar={
+          <Avatar
+          alt='Avatar'
+          src={post.user.avatar || "/noAvatar.png"}
+          sx={{ width: 40, height: 40 }}
+        />
+        }
+        action={
+          userId === post.user.id && <PostInfo postId={post.id} />
+          
+        }
+        disableTypography
+        title={
+          <Typography variant="body1" color="textSecondary">
             {post.user.name && post.user.surname
-              ? post.user.name + " " + post.user.surname
-              : post.user.username}
-          </span>
-        </div>
-        {userId === post.user.id && <PostInfo postId={post.id} />}
-      </div>
+          ? post.user.name + " " + post.user.surname
+          : '@' + post.user.username}
+          </Typography>
+        }               
+      />      
       {/* DESC */}
+      <CardContent>
       <div className="flex flex-col gap-4">
         {post.img && (
           <div className="w-full min-h-96 relative">
@@ -62,6 +69,7 @@ export default async function Post({ post }: { post: FeedPostType }) {
       <Suspense fallback="Loading...">
         <Comments postId={post.id} />
       </Suspense>
-    </div>
+      </CardContent>
+    </Card>
   )
 }

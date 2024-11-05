@@ -1,17 +1,19 @@
-'use client'
-import React from 'react'
-import { useFormStatus } from 'react-dom';
+"use client";
+import { Button } from "@mui/material";
+import React from "react";
+import { useFormStatus } from "react-dom";
 
 export default function UpdateButton() {
-
   const { pending } = useFormStatus();
 
   return (
-    <button
-      className="bg-blue-500 p-2 mt-2 rounded-md text-white disabled:bg-opacity-50 disabled:cursor-not-allowed"
+    <Button
+      type="submit"
+      variant="contained"
       disabled={pending}
+      sx={{ width: "100px", alignSelf: "center" }}
     >
       {pending ? "Updating..." : "Update"}
-    </button>
-  )
+    </Button>
+  );
 }

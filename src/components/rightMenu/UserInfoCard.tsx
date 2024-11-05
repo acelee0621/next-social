@@ -6,6 +6,7 @@ import Link from "next/link";
 import React from "react";
 import UserInfoCardInteraction from "./UserInfoCardInteraction";
 import UpdateUser from "./updateUser";
+import { Card, CardActions, CardContent, CardHeader, Stack, Typography } from "@mui/material";
 
 export default async function UserInfoCard({ user }: { user: User }) {
   const createdAtDate = new Date(user.createdAt);
@@ -31,59 +32,70 @@ export default async function UserInfoCard({ user }: { user: User }) {
   }
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow-md text-sm flex flex-col gap-4">
-      {/* TOP */}
-      <div className="flex justify-between items-center font-medium">
-        <span className="text-gray-500">User Information</span>
-        {currentUserId === user.id ? (
-          <UpdateUser user={user} />
-        ) : (
-          <Link href="/" className="text-blue-500 text-xs">
-            See all
-          </Link>
-        )}
-      </div>
-      {/* BOTTOM */}
-      <div className="flex flex-col gap-4 text-gray-500">
-        <div className="flex items-center gap-2">
-          <span className="text-xl text-black">
-            {user.name && user.surname
-              ? user.name + " " + user.surname
-              : user.username}
-          </span>
-          <span className="text-sm">@{user.username}</span>
-        </div>
-        {user.description && <p>{user.description}</p>}
+    <Card raised sx={{ borderRadius: 1.5 }}>
+      <CardHeader
+        disableTypography
+        title={
+          <Typography variant="body1" color="textSecondary">
+            User Information
+          </Typography>
+        }
+        action={
+          currentUserId === user.id ? (
+            <UpdateUser user={user} />
+          ) : (
+            <Link href="/" className="text-blue-500 text-xs">
+              See all
+            </Link>
+          )
+        }
+      />      
+        {/* BOTTOM */}
+        <CardContent>
+        <Stack direction="column" gap={1}>
+        <Stack direction="row" alignItems="center" gap={1} justifyContent="flex-start">
+          <Typography variant="h5" color="textSecondary" fontWeight={500}>
+              {user.name && user.surname
+                ? user.name + " " + user.surname
+                : user.username}
+            </Typography>
+            <Typography variant="body1" color="textSecondary">@{user.username}</Typography>
+          </Stack>
+          {user.description && <Typography variant="caption" color="textSecondary">{user.description}</Typography>}
 
-        {user.city && (
-          <div className="flex items-center gap-2">
-            <Image src="/map.png" alt="" width={16} height={16} />
-            <span>
-              Living in <b>{user.city}</b>
-            </span>
-          </div>
-        )}
+          {user.city && (
+            <Stack direction="row" alignItems="center" gap={1} justifyContent="flex-start">
+              <Image src="/map.png" alt="" width={16} height={16} />
+              <Typography variant="body2" color="textSecondary">
+                Living in <b>{user.city}</b>
+                </Typography>
+            </Stack>
+          )}
 
-        {user.work && (
-          <div className="flex items-center gap-2">
-            <Image src="/work.png" alt="" width={16} height={16} />
-            <span>
-              Works at <b>{user.work}</b>
-            </span>
-          </div>
-        )}
+          {user.work && (
+            <Stack direction="row" alignItems="center" gap={1} justifyContent="flex-start">
+              <Image src="/work.png" alt="" width={16} height={16} />
+              <Typography variant="body2" color="textSecondary">
+                Works at <b>{user.work}</b>
+                </Typography>
+            </Stack>
+          )}
 
-        <div className="flex items-center justify-between">
-          <div className="flex gap-1 items-center">
-            <Image src="/date.png" alt="" width={16} height={16} />
-            <span>Joined {formattedDate} </span>
-          </div>
-        </div>
+          
+            <Stack direction="row" alignItems="center" gap={1} justifyContent="flex-start">
+              <Image src="/date.png" alt="" width={16} height={16} />
+              <Typography variant="body2" color="textSecondary">Joined {formattedDate} </Typography>
+            </Stack>
+          
 
-        {currentUserId && currentUserId !== user.id && (
-          <UserInfoCardInteraction userId={user.id} isFollowing={isFollowing} />
-        )}
-      </div>
-    </div>
+          {currentUserId && currentUserId !== user.id && (
+            <UserInfoCardInteraction
+              userId={user.id}
+              isFollowing={isFollowing}
+            />
+          )}
+        </Stack>
+        </CardContent>            
+    </Card>
   );
 }

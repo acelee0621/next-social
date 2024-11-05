@@ -1,44 +1,80 @@
+import {
+  Avatar,
+  Button,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardHeader,
+  Stack,
+  Typography,
+} from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 
 const Birthdays = () => {
   return (
-    <div className="p-4 bg-white rounded-lg shadow-md text-sm flex flex-col gap-4">
+    <Card raised sx={{ borderRadius: 1.5 }}>
       {/* TOP */}
-      <div className="flex justify-between items-center font-medium">
-        <span className="text-gray-500">Birthdays</span>
-      </div>
+      <CardHeader
+        disableTypography
+        title={
+          <Typography variant="body1" color="textSecondary">
+            Birthdays
+          </Typography>
+        }
+      />
       {/* USER */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Image
-            src="https://images.pexels.com/photos/18207381/pexels-photo-18207381/free-photo-of-window-in-bar.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load"
-            alt=""
-            width={40}
-            height={40}
-            className="w-10 h-10 rounded-full object-cover"
-          />
-          <span className="font-semibold">Wayne Burton</span>
-        </div>
-        <div className="flex gap-3 justify-end">
-          <button className="bg-blue-500 text-white text-xs px-2 py-1 rounded-md">
-            Celebrate
-          </button>
-        </div>
-      </div>
-      {/* UPCOMING */}
-      <div className="p-4 bg-slate-100 rounded-lg flex items-center gap-4">
-        <Image src="/gift.png" alt="" width={24} height={24} />
-        <Link href="/" className="flex flex-col gap-1 text-xs">
-          <span className="text-gray-700 font-semibold">
-            Upcoming Birthdays
-          </span>
-          <span className="text-gray-500">
-            See other 16 have upcoming birthdays
-          </span>
-        </Link>
-      </div>
-    </div>
+      <CardContent sx={{ px: 2 }}>       
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            sx={{mb:2,px:1}}
+            // gap={8}            
+          >
+            <Stack
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+              gap={2}
+            >
+              <Avatar
+                alt="birthday"
+                src="/profile/delba-de-oliveira.png"
+                sx={{ width: 40, height: 40 }}
+              />
+              <Typography
+                variant="body1"
+                color="textSecondary"
+                fontWeight={500}
+              >
+                Ace Lee
+              </Typography>
+            </Stack>            
+              <Button
+                variant="contained"
+                size="small"
+                sx={{ textTransform: "none" }}
+              >
+                Celebrate
+              </Button>            
+          </Stack>
+          {/* UPCOMING */}
+          <CardActionArea sx={{borderRadius:1.5,bgcolor:"#f1f5f9",padding:1}}>
+            <Stack direction="row" alignItems="center" justifyContent="center" gap={2}>
+              <Image src="/gift.png" alt="" width={24} height={24} />              
+              <Link href="/">
+                <Typography variant="body2" color="textSecondary" fontWeight={700} component="p">
+                  Upcoming Birthdays
+                </Typography>
+                <Typography variant="caption" color="textSecondary" component="p">
+                  See other 16 have upcoming birthdays
+                </Typography>
+              </Link>              
+            </Stack>
+          </CardActionArea>        
+      </CardContent>
+    </Card>
   );
 };
 

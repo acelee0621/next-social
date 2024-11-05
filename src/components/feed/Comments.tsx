@@ -13,10 +13,10 @@ const Comments = async ({postId}:{postId:number}) => {
     }
   })
   return (
-    <div className="">
-      {/* WRITE */}
+    
+     <div>
       <CommentList comments={comments} postId={postId}/>
-    </div>
+      </div>
   );
 };
 
