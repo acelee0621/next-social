@@ -113,7 +113,7 @@ const CommentList = ({
                   ? comment.user.name + " " + comment.user.surname
                   : "@" + comment.user.username}
               </Typography>
-              <Typography variant="body1" color="textSecondary" sx={{bgcolor:"#f1f5f9",borderRadius:2,padding:1}}>
+              <Typography variant="body1" color="textSecondary" sx={{bgcolor:"#f1f5f9",borderRadius:4,px:2,py:1}}>
                 {comment.desc}
               </Typography>
               <Stack direction="row" alignItems="center" gap={3} sx={{ mt: 1 }}>

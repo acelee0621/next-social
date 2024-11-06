@@ -64,7 +64,7 @@ export default function PostInteraction({
         justifyContent="center"
         alignItems="center"
         gap={3}
-        sx={{ bgcolor: "#f1f5f9", borderRadius: 2,padding:1}}
+        sx={{ bgcolor: "#f1f5f9", borderRadius:6,px:2,py:0.5}}
       >
         <FormControl component="form" action={likeAction}>
           <button>
@@ -72,10 +72,10 @@ export default function PostInteraction({
           </button>
         </FormControl>
         <Divider orientation="vertical" variant="middle" flexItem />
-        <Typography variant="body1" color="textSecondary">
+        <Typography variant="caption" color="textSecondary" fontWeight={500}>
           {optimisticLike.likeCount}
           <Typography
-            variant="body1"
+            variant="caption"
             color="textSecondary"
             sx={{ display: { xs: "none", sm: "none", md: "inline" } }}
           >
@@ -89,14 +89,14 @@ export default function PostInteraction({
         justifyContent="center"
         alignItems="center"
         gap={3}
-        sx={{ bgcolor: "#f1f5f9", borderRadius: 2, padding: 1 }}
+        sx={{ bgcolor: "#f1f5f9", borderRadius:6,px:2,py:0.5 }}
       >
         <IconMessage />
         <Divider orientation="vertical" variant="middle" flexItem />
-        <Typography variant="body1" color="textSecondary">
+        <Typography variant="caption" color="textSecondary" fontWeight={500}>
           {commentNumber}
           <Typography
-            variant="body1"
+            variant="caption"
             color="textSecondary"
             sx={{ display: { xs: "none", sm: "none", md: "inline" } }}
           >
@@ -111,12 +111,12 @@ export default function PostInteraction({
         justifyContent="center"
         alignItems="center"
         gap={3}
-        sx={{ bgcolor: "#f1f5f9", borderRadius: 2, padding: 1 }}
+        sx={{ bgcolor: "#f1f5f9", borderRadius:6,px:2,py:0.5 }}
       >
         <IconShare />
         <Divider orientation="vertical" variant="middle" flexItem />
         <Typography
-          variant="body1"
+          variant="caption"
           color="textSecondary"
           sx={{ display: { xs: "none", sm: "none", md: "inline" } }}
         >
