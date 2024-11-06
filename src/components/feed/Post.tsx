@@ -2,11 +2,11 @@ import Image from 'next/image'
 import React, { Suspense } from 'react'
 import { Post as PostType, User } from "@prisma/client";
 import { auth } from '@clerk/nextjs/server';
-
 import Comments from './Comments';
 import PostInfo from './PostInfo';
-import { Avatar, Card, CardContent, CardHeader, Typography } from '@mui/material';
+import { Avatar, Box, Card, CardContent, CardHeader, Stack, Typography } from '@mui/material';
 import PostInteraction from './PostInteraction';
+import Loading from '@/app/loading';
 
 
 
@@ -36,7 +36,7 @@ export default async function Post({ post }: { post: FeedPostType }) {
         }
         disableTypography
         title={
-          <Typography variant="body1" color="textSecondary">
+          <Typography variant="body1" color="textSecondary" fontWeight={500}>
             {post.user.name && post.user.surname
           ? post.user.name + " " + post.user.surname
           : '@' + post.user.username}
@@ -45,28 +45,28 @@ export default async function Post({ post }: { post: FeedPostType }) {
       />      
       {/* DESC */}
       <CardContent>
-      <div className="flex flex-col gap-4">
+      <Stack direction="column" gap={3} className="flex flex-col gap-4">
         {post.img && (
-          <div className="w-full min-h-96 relative">
+          <Box sx={{width:"100%",minHeight:"24rem",position:"relative"}}>
             <Image
               src={post.img}
               fill
               className="object-cover rounded-md"
               alt="post-image"
             />
-          </div>
+          </Box>
         )}
-        <p>{post.desc}</p>
-      </div>
+        <Typography variant='body1' color='textSecondary'>{post.desc}</Typography>
+      </Stack>
       {/* INTERACTION */}
-      <Suspense fallback="Loading...">
+      <Suspense fallback={<Loading/>}>
         <PostInteraction
           postId={post.id}
           likes={post.likes.map((like) => like.userId)}
           commentNumber={post._count.comments}
         />
       </Suspense>
-      <Suspense fallback="Loading...">
+      <Suspense fallback={<Loading/>}>
         <Comments postId={post.id} />
       </Suspense>
       </CardContent>

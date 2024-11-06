@@ -1,5 +1,5 @@
 import prisma from "@/lib/client";
-import { Card, CardContent, CardHeader, Stack, Typography } from "@mui/material";
+import { Box, Card, CardContent, CardHeader, Stack, Typography } from "@mui/material";
 import { User } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
@@ -38,9 +38,9 @@ const postWithMedia = await prisma.post.findMany({
       {/* BOTTOM */}
       <CardContent sx={{ px: 2 }}>
       <Stack direction="row" justifyContent="start" gap={1}>
-        { postWithMedia.length ? postWithMedia.map(post => (<div className="relative w-1/5 h-24" key={post.id}>
+        { postWithMedia.length ? postWithMedia.map(post => (<Box sx={{position:"relative",width:"20%",height:"5rem"}} key={post.id}>
           <Image src={post.img!} alt="" fill className="object-cover rounded-md" />
-        </div>)) : "No Media Found!" }
+        </Box>)) : "No Media Found!" }
       </Stack> 
       </CardContent>  
     </Card>

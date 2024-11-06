@@ -14,6 +14,7 @@ import {
   Stack,  
   TextField,
 } from "@mui/material";
+import Loading from "@/app/loading";
 
 const AddPost = () => {
   const { user, isLoaded } = useUser();
@@ -21,7 +22,7 @@ const AddPost = () => {
   const [img, setImg] = useState<any>();
 
   if (!isLoaded) {
-    return "Loading...";
+    return <Loading/>;
   }
 
   return (

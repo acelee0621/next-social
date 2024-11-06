@@ -21,10 +21,8 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body>        
-          {/* <div className="w-full bg-white px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64"> */}
-          <Navbar />          
-          {/* </div> */}
+        <body>         
+          <Navbar />         
           <Box
             sx={{
               px: { sm: 4, md: 8, lg: 16, xl: 32, xxl: 64 },

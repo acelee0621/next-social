@@ -2,12 +2,9 @@
 
 import { switchLike } from "@/lib/action";
 import { useAuth } from "@clerk/nextjs";
-import {
-  Box,
-  Button,
+import {  
   Divider,
-  FormControl,
-  IconButton,
+  FormControl,  
   Stack,
   Typography,
 } from "@mui/material";
@@ -17,7 +14,6 @@ import {
   IconThumbUp,
   IconThumbUpFilled,
 } from "@tabler/icons-react";
-import Image from "next/image";
 import { useOptimistic, useState } from "react";
 
 export default function PostInteraction({

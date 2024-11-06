@@ -11,7 +11,6 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import React from "react";
 

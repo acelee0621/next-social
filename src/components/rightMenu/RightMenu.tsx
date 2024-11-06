@@ -6,16 +6,17 @@ import UserMediaCard from "./UserMediaCard";
 import { User } from "@prisma/client";
 import FollowerInfo from "./FollowerInfo";
 import { Stack } from "@mui/material";
+import Loading from "@/app/loading";
 
 export default function RightMenu({ user }: { user?: User }) {
   return (
     <Stack direction="column" gap={4}>
       {user ? (
         <>
-          <Suspense fallback="loading...">
+          <Suspense fallback={<Loading/>}>
             <UserInfoCard user={user} />
           </Suspense>
-          <Suspense fallback="loading...">
+          <Suspense fallback={<Loading/>}>
             <UserMediaCard user={user} />
           </Suspense>
         </>

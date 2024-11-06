@@ -1,7 +1,5 @@
 import Link from "next/link";
 import React from "react";
-import MobileMenu from "./MobileMenu";
-import Image from "next/image";
 import {
   ClerkLoaded,
   ClerkLoading,
@@ -114,8 +112,7 @@ export default function Navbar() {
                 </Link>
               </Stack>
             </SignedOut>
-          </ClerkLoaded>
-          <MobileMenu />
+          </ClerkLoaded>          
         </Stack>
       </Toolbar>
     </AppBar>

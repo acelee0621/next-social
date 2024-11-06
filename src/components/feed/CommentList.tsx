@@ -3,10 +3,7 @@
 import { addComment } from "@/lib/action";
 import { useUser } from "@clerk/nextjs";
 import {
-  Avatar,
-  Card,
-  CardContent,
-  CardHeader,
+  Avatar,  
   Divider,
   FormControl,
   IconButton,

@@ -6,7 +6,7 @@ import Link from "next/link";
 import React from "react";
 import UserInfoCardInteraction from "./UserInfoCardInteraction";
 import UpdateUser from "./updateUser";
-import { Card, CardActions, CardContent, CardHeader, Stack, Typography } from "@mui/material";
+import { Card, CardContent, CardHeader, Stack, Typography } from "@mui/material";
 
 export default async function UserInfoCard({ user }: { user: User }) {
   const createdAtDate = new Date(user.createdAt);

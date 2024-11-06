@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import { IconDots } from "@tabler/icons-react";
-import Image from "next/image";
+
 
 const Ad = ({ size }: { size: "sm" | "md" | "lg" }) => {
   return (

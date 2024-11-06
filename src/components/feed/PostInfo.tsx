@@ -40,7 +40,7 @@ const PostInfo = ({ postId }: { postId: number }) => {
         <MenuItem onClick={handleClose}>Re-post</MenuItem>
         <MenuItem>
         <FormControl component="form" action={deletePostWithId}>
-        <Button size="small" variant="text" disableElevation sx={{color:"red"}} type="submit">
+        <Button size="small" variant="text" disableElevation color="error" type="submit">
           Delete
         </Button>
         </FormControl>

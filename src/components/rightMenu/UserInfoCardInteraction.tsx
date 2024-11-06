@@ -1,7 +1,7 @@
 "use client";
 
 import { switchFollow } from "@/lib/action";
-import { Button } from "@mui/material";
+import { Button, FormControl } from "@mui/material";
 import { useOptimistic, useState } from "react";
 
 const UserInfoCardInteraction = ({
@@ -37,11 +37,11 @@ const UserInfoCardInteraction = ({
   );
   return (
     <>
-      <form action={follow}>
+      <FormControl component="form" action={follow}>
         <Button variant="contained" fullWidth >
           {optimisticState.following ? "Following" : "Follow"}
         </Button>
-      </form>
+      </FormControl>
     </>
   );
 };
