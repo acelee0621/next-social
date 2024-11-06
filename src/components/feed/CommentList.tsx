@@ -116,7 +116,7 @@ const CommentList = ({
               <Typography variant="body1" color="textSecondary" sx={{bgcolor:"#f1f5f9",borderRadius:4,px:2,py:1}}>
                 {comment.desc}
               </Typography>
-              <Stack direction="row" alignItems="center" gap={3} sx={{ mt: 1 }}>
+              <Stack direction="row" alignItems="center" gap={2} sx={{ mt: 1 }}>
                 <Stack direction="row" alignItems="center" gap={1}>
                   <IconThumbUp />
                   <Divider orientation="vertical" variant="middle" flexItem />

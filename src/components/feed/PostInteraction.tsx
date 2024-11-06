@@ -63,7 +63,7 @@ export default function PostInteraction({
         direction="row"
         justifyContent="center"
         alignItems="center"
-        gap={3}
+        gap={1}
         sx={{ bgcolor: "#f1f5f9", borderRadius:6,px:2,py:0.5}}
       >
         <FormControl component="form" action={likeAction}>
@@ -88,7 +88,7 @@ export default function PostInteraction({
         direction="row"
         justifyContent="center"
         alignItems="center"
-        gap={3}
+        gap={1}
         sx={{ bgcolor: "#f1f5f9", borderRadius:6,px:2,py:0.5 }}
       >
         <IconMessage />
@@ -110,7 +110,7 @@ export default function PostInteraction({
         direction="row"
         justifyContent="center"
         alignItems="center"
-        gap={3}
+        gap={1}
         sx={{ bgcolor: "#f1f5f9", borderRadius:6,px:2,py:0.5 }}
       >
         <IconShare />
